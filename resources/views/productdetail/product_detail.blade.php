@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span class="mr-2"><a href="index.html">Product</a></span> <span>Product Single</span></p>
+                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span class="mr-2"><a href="index.html">Product</a></span> </p>
                 <h1 class="mb-0 bread">Chi tiết sản phẩm</h1>
             </div>
         </div>
@@ -49,12 +49,12 @@
                 <div class="row mt-4">
                     <div class="col-md-6">
                     <div class="input-group col-md-6 d-flex mb-3">
-                        <span class="input-group-btn mr-2">
+                        <span class="input-group-btn" style="margin-right: 46px;">
                         <button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
                        <i class="ion-ios-remove"></i>
                         </button>
                         </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100" form="form-add-cart">
                         <span class="input-group-btn ml-2">
                         <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
                          <i class="ion-ios-add"></i>
@@ -66,10 +66,13 @@
                         <p style="color: #000;">600 kg available</p>
                     </div>
                 </div>
-                <p><a href="{{route('themgiohang', $sanpham->id)}}" class="btn btn-black py-3 px-5">Add to Cart</a></p>
+                <p><a href="{{route('themnhieusanpham', $sanpham->id)}}" class="btn btn-black py-3 px-5" id="add-cart">Add to Cart</a></p>
             </div>
         </div>
     </div>
+<form id="form-add-cart" action="{{ route('themnhieusanpham', $sanpham->id) }}" method="POST" style="display: none;">
+    @csrf
+</form>
 </section>
 
 <section class="ftco-section">
@@ -129,7 +132,9 @@
         <div class="row">{{$sp_tuongtu->links()}}</div> 
     </div>
 </section>
+@endsection
 
+@section('script')
 <script>
     $(document).ready(function() {
 
@@ -163,6 +168,35 @@
             }
         });
 
+        $(document).on('click', '#add-cart', function(event){
+            event.preventDefault();
+            var quantity = $("input#quantity").val();
+            var page = $(this).attr('href');
+            ajax_form(page, quantity);
+            count_cart();
+        });
+
+        function ajax_form(page, quantity) 
+        {
+            $.ajax({
+                url: page+'/'+quantity,
+                success:function(data) 
+                {
+                    $('#ajax_cart').html(data);
+                },
+            })
+        } 
+
+        function count_cart() 
+        {
+            $.ajax({
+                url:"/count_cart",
+                success:function(data) 
+                {
+                    $('#count_cart').html(data);
+                },
+            })
+        }  
     });
 </script>
 

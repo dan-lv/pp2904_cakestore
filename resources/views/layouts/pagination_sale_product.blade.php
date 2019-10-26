@@ -31,7 +31,7 @@
                     <a href="{{route('themgiohang', $sale->id)}}" class="buy-now d-flex justify-content-center align-items-center mx-1" id="saleProduct">
                         <span><i class="ion-ios-cart"></i></span>
                     </a>
-                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                    <a href="{{route('addwishlist', $sale->id)}}" class="heart d-flex justify-content-center align-items-center ">
                         <span><i class="ion-ios-heart"></i></span>
                     </a>
                 </div>

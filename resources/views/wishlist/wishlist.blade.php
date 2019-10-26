@@ -11,7 +11,13 @@
         </div>
     </div>
 </div>
-<section class="ftco-section ftco-cart">
+
+<section class="ftco-section ftco-cart" style="padding-top: 50px;">
+    @if(Session::has('status'))
+    <div class="alert alert-success">
+        {{Session::get('status')}}
+    </div>
+    @endif
     <div class="container">
         <div class="row">
             <div class="col-md-12 ftco-animate">
@@ -19,32 +25,35 @@
                     <table class="table">
                         <thead class="thead-primary">
                             <tr class="text-center">
-                                <th>&nbsp;</th>
                                 <th>Product List</th>
                                 <th>Product ID</th>
                                 <th>Product Name</th>
                                 <th>Price</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($productlist as $productlists)
                             <tr class="text-center">
-                            	@foreach($productlist as $productlists)
-                                <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 
                                 <td class="image-prod">
-                                    <div class="img" style="background-image:url(source/image/product/{{$productlists->image}});"></div>
+                                    <a href="{{ route('productdetail', $productlists->id) }}">
+                                        <div class="img" style="background-image:url(source/image/product/{{$productlists->image}});"></div>
+                                    </a>
                                 </td>
 
                                 <td class="price">{{$productlists->id}}</td>
 
                                 <td class="product-name">
-                                    <h3>{{$productlists->name}}</h3>
-                                    <p>{{$productlists->description}}</p>
+                                    <a href="{{ route('productdetail', $productlists->id) }}">
+                                        <h3>{{$productlists->name}}</h3>
+                                    </a>
                                 </td>
 
                                 <td class="total">{{$productlists->unit_price}}</td>
-                                @endforeach
+                                <td class="product-remove"><a href="{{ route('deletewishlist', $productlists->id)}}"><span class="ion-ios-close"></span></a></td>
                             </tr>
+                            @endforeach
                             <!-- END TR-->
                         </tbody>
                     </table>

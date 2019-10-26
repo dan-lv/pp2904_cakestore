@@ -91,8 +91,13 @@ Route::group([
     ]);
 });
 
-Route::get('add-to-cart/{id}', [
+Route::get('add-to-cart/{id}/{quantity?}', [
     'as' => 'themgiohang',
+    'uses' => 'PageController@getAddtoCart'
+]);
+
+Route::post('add-to-cart/{id}', [
+    'as' => 'themnhieusanpham',
     'uses' => 'PageController@getAddtoCart'
 ]);
 
@@ -132,6 +137,17 @@ Route::get('member',[
     'uses' => 'MemberController@index'
 ]);
 
-Route::get('/wishlist', 'WishListController@wishlist')->middleware('auth');
+Route::get('/wishlist', [
+    'as' => 'wishlist',
+    'uses' => 'WishListController@wishList'
+]);
 
-Route::get('/wishlist/add/{product_id}', 'WishListController@addProduct')->middleware('auth');
+Route::get('/wishlist/add/{product_id}', [
+    'as' => 'addwishlist',
+    'uses' => 'WishListController@addProduct'
+])->middleware('auth');
+
+Route::get('/wishlist/delete/{product_id}', [
+    'as' => 'deletewishlist',
+    'uses' => 'WishListController@deleteProduct'
+]);
