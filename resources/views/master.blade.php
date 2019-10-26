@@ -185,6 +185,14 @@
         }  
     })
 </script>
+
+<script>
+    var message = '{{Session::get('alert')}}';
+    var exist = '{{Session::has('alert')}}';
+    if(exist){
+      alert(message);
+    }
+  </script>
 @yield('script')
 
 </body>

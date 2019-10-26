@@ -25,7 +25,7 @@
                 <div class="m-widget24">
                     <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                            Total Book
+                            Total Product
                         </h4>
                         <br>
                         <span class="m-widget24__desc">
@@ -53,7 +53,7 @@
                 <div class="m-widget24">
                     <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                            Total Blog
+                            Total Message
                         </h4>
                         <br>
                         <span class="m-widget24__desc">
@@ -81,7 +81,7 @@
                 <div class="m-widget24">
                     <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                            Total User
+                            Total Order
                         </h4>
                         <br>
                         <span class="m-widget24__desc">
@@ -109,7 +109,7 @@
                 <div class="m-widget24">
                     <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                            Total Report Pending
+                            Total Order Pending
                         </h4>
                         <br>
                         <span class="m-widget24__desc">

@@ -3,38 +3,44 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\WishList;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use DB;
 
 class WishListController extends Controller
 {
-	public function wishlist(Request $request) {
-    	$wishlist = WishList::whereUserId(Auth::user()->id)->paginate(20);
-        return view('wishlist.wishlist', compact('wishlist'));
-        // dd($request->product_id);
-        // $wishlist = new WishList;
-        // $wishlist->user_id =  Auth::user()->id;
-        // $wishlist->product_id = $request->product_id;
+    public function wishList(Request $request) {
+        if (!Auth::check()) {
+            return redirect()->back()->with('alert', 'You need to login');
+        }
 
-        // $wishlist->save();
-
-        // $productlist = DB::table('products')->where('id', $request->product_id)->get();
-        
-        // return view('wishlist.wishlist', compact('productlist'));
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
+        $productlist = $user->products;
+       
+        return view('wishlist.wishlist', compact('productlist'));
     }
 
     public function addProduct($product_id)
     {
-        $wishlist = new WishList;
-        $wishlist->user_id =  Auth::user()->id;
-        $wishlist->product_id = $product_id;
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
 
-        $wishlist->save();
-
-        $productlist = DB::table('products')->where('id', $product_id)->get();
+        $user->products()->attach($product_id);
         
-        return view('wishlist.wishlist', compact('productlist'));
+        return redirect()->route('wishlist');
+    }
+
+    public function deleteProduct($product_id)
+    {
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
+
+        $name_product = Product::find($product_id)->name;
+
+        $user->products()->detach($product_id);
+        
+        return redirect()->back()->with('status', $name_product.' removed out your wish list.');
     }
 }
 

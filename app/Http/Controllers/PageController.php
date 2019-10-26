@@ -64,13 +64,13 @@ class PageController extends Controller
         return view('about');
     }
 
-    public function getAddtoCart(Request $request, $id) {
+    public function getAddtoCart(Request $request, $id, $quantity = 0) {
         if($request->ajax()) 
         {
             $product = Product::find($id);
             $oldCart = Session('cart')?Session::get('cart'):null;
             $cart = new Cart($oldCart);
-            $cart->add($product, $id);
+            $cart->add($product, $id, $quantity);
             $request->session()->put('cart', $cart);
 
             return view('checkout.cart')->with([ 

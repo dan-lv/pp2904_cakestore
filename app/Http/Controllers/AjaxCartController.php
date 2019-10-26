@@ -12,4 +12,11 @@ class AjaxCartController extends Controller
             return view('checkout.count_cart')->render();
         }
     }
+
+    public function addManyProduct(Request $request) {
+        if($request->ajax()) 
+        {
+            return view('checkout.count_cart')->render();
+        }
+    }
 }
